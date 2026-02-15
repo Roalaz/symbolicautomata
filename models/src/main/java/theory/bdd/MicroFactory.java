@@ -692,7 +692,7 @@ public class MicroFactory extends BDDFactory {
         }
         
         void checkCompulsory(int a) {
-            if (!cache.contains(new Integer(a)))
+            if (!cache.contains(Integer.valueOf(a)))
                 ++compulsoryMiss;
         }
         void checkCompulsory(int a, int b) {
@@ -708,7 +708,7 @@ public class MicroFactory extends BDDFactory {
                 ++compulsoryMiss;
         }
         void addCompulsory(int a) {
-            cache.add(new Integer(a));
+            cache.add(Integer.valueOf(a));
         }
         void addCompulsory(int a, int b) {
             cache.add(new PairOfInts(a, b));
@@ -720,7 +720,7 @@ public class MicroFactory extends BDDFactory {
             cache.add(new QuadOfInts(a, b, c, d));
         }
         void removeCompulsory(int a) {
-            cache.remove(new Integer(a));
+            cache.remove(Integer.valueOf(a));
         }
         void removeCompulsory(int a, int b) {
             cache.remove(new PairOfInts(a, b));

@@ -35,7 +35,7 @@ public abstract class BDDFactory {
     public static final String getProperty(String key, String def) {
         try {
             return System.getProperty(key, def);
-        } catch (AccessControlException _) {
+        } catch (SecurityException e) {
             return def;
         }
     }
@@ -82,12 +82,12 @@ public abstract class BDDFactory {
         try {
             Class c = Class.forName(bddpackage);
             Method m = c.getMethod("init", new Class[] { int.class, int.class });
-            return (BDDFactory) m.invoke(null, new Object[] { new Integer(nodenum), new Integer(cachesize) });
+            return (BDDFactory) m.invoke(null, new Object[] { Integer.valueOf(nodenum), Integer.valueOf(cachesize) });
         }
-        catch (ClassNotFoundException _) {}
-        catch (NoSuchMethodException _) {}
-        catch (IllegalAccessException _) {}
-        catch (InvocationTargetException _) {}
+        catch (ClassNotFoundException |
+               InvocationTargetException |
+               IllegalAccessException |
+               NoSuchMethodException ignored) {}
         // falling back to default java implementation.
         return JFactory.init(nodenum, cachesize);
     }
@@ -462,7 +462,7 @@ public abstract class BDDFactory {
             BDD result = load(r);
             return result;
         } finally {
-            if (r != null) try { r.close(); } catch (IOException _) { }
+            if (r != null) try { r.close(); } catch (IOException ignored) { }
         }
     }
     // TODO: error code from bdd_load (?)
@@ -606,7 +606,7 @@ public abstract class BDDFactory {
             is = new BufferedWriter(new FileWriter(filename));
             save(is, var);
         } finally {
-            if (is != null) try { is.close(); } catch (IOException _) { }
+            if (is != null) try { is.close(); } catch (IOException ignored) { }
         }
     }
     // TODO: error code from bdd_save (?)
@@ -655,7 +655,7 @@ public abstract class BDDFactory {
             return i.intValue();
         }
         int v = visited.size() + 2;
-        visited.put(root, new Integer(v));
+        visited.put(root, Integer.valueOf(v));
         
         BDD l = root.low();
         int lo = save_rec(out, visited, l);
@@ -1692,7 +1692,7 @@ public abstract class BDDFactory {
         if (gc_callbacks == null) {
             bdd_default_gbchandler(pre, s);
         } else {
-            doCallbacks(gc_callbacks, new Integer(pre?1:0), s);
+            doCallbacks(gc_callbacks, Integer.valueOf(pre?1:0), s);
         }
     }
     
@@ -1713,7 +1713,7 @@ public abstract class BDDFactory {
         if (reorder_callbacks == null) {
             bdd_default_reohandler(b, s);
         } else {
-            doCallbacks(reorder_callbacks, new Integer(b?1:0), s);
+            doCallbacks(reorder_callbacks, Integer.valueOf(b?1:0), s);
         }
     }
 
@@ -1736,7 +1736,7 @@ public abstract class BDDFactory {
         if (resize_callbacks == null) {
             bdd_default_reshandler(oldsize, newsize);
         } else {
-            doCallbacks(resize_callbacks, new Integer(oldsize), new Integer(newsize));
+            doCallbacks(resize_callbacks, Integer.valueOf(oldsize), Integer.valueOf(newsize));
         }
     }
 
