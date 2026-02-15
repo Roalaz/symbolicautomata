@@ -29,11 +29,11 @@
 		    <artifactId>org.ow2.sat4j.core</artifactId>
 		    <version>2.3.4</version>
 		</dependency>
-		<dependency>
-            <groupId>jdd</groupId>
+        <dependency>
+            <groupId>org.bitbucket.vahidi</groupId>
             <artifactId>jdd</artifactId>
-            <version>1.0</version>
-		</dependency>
+            <version>112</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>

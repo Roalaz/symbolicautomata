@@ -857,7 +857,7 @@ public class JDDFactory extends BDDFactory {
      */
     public int getNodeTableSize() {
         // todo.
-        return bdd.countRootNodes();
+        return bdd.debug_compute_root_nodes();
     }
 
     /* (non-Javadoc)
@@ -865,7 +865,7 @@ public class JDDFactory extends BDDFactory {
      */
     public int getNodeNum() {
         // todo.
-        return bdd.countRootNodes();
+        return bdd.debug_compute_root_nodes();
     }
 
     /* (non-Javadoc)
